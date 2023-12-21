@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 interface Todo {
   id: number;
@@ -9,21 +9,24 @@ interface Todo {
 }
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
+  const fetchTodos = () =>
     axios
-      .get('https://jsonplaceholder.typicode.com/todos')
-      .then((res) => setTodos(res.data))
-      .catch((error) => setError(error));
-  }, []);
+      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
+      .then((res) => res.data);
+  const { data: todos } = useQuery({
+    // queryKey is used for caching, whenever data is fecthed from the backend, it is stored in caching
+    queryKey: ["todos"],
+    // queryFn is a function that used to fetch the data from the backend, this function should return promise that
+    // resolves to data or the error . we can use any http or fetch function to fetch the data. becoz react query only
+    // concerns about managing and caching data not about how we fetch it
+    queryFn: fetchTodos,
+  });
 
-  if (error) return <p>{error}</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <ul className="list-group">
-      {todos.map((todo) => (
+      {todos?.map((todo) => (
         <li key={todo.id} className="list-group-item">
           {todo.title}
         </li>
