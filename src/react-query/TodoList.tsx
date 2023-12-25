@@ -13,7 +13,7 @@ const TodoList = () => {
     axios
       .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
       .then((res) => res.data);
-  const { data: todos, error } = useQuery<Todo[], Error>({
+  const { data: todos, error, isLoading } = useQuery<Todo[], Error>({
     // queryKey is used for caching, whenever data is fecthed from the backend, it is stored in caching
     queryKey: ["todos"],
     // queryFn is a function that used to fetch the data from the backend, this function should return promise that
@@ -22,6 +22,7 @@ const TodoList = () => {
     queryFn: fetchTodos,
   });
 
+  if(isLoading) return <p>Loading...</p>;
   if (error) return <p>{error.message}</p>;
 
   return (
