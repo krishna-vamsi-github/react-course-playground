@@ -10,15 +10,16 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 3,
-      cacheTime: 10_000
-    }
-  }
+      cacheTime: 100_000,
+    },
+  },
 });
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
-      <ReactQueryDevtools />{/* in production react query dev tools will be removed automatically */}
+      <ReactQueryDevtools />
+      {/* in production react query dev tools will be removed automatically */}
     </QueryClientProvider>
   </React.StrictMode>
 );
