@@ -29,6 +29,7 @@ const usePosts = (query: Props) => {
     queryKey: ["posts", query],
     queryFn: fetchPosts,
     staleTime: 1 * 60 * 1000,
+    keepPreviousData: true, // it will not show loading state because it will keep previous data until we get new data
   });
 };
 
