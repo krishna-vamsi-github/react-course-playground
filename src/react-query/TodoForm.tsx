@@ -20,6 +20,7 @@ const TodoForm = () => {
         savedData,
         ...(todos || []),
       ]);
+      if (ref.current) ref.current.value = "";
     },
   });
 
@@ -45,7 +46,9 @@ const TodoForm = () => {
           <input ref={ref} type="text" className="form-control" />
         </div>
         <div className="col">
-          <button className="btn btn-primary">Add</button>
+          <button disabled={mutation.isLoading} className="btn btn-primary">
+            {mutation.isLoading ? "Adding..." : "Add"}
+          </button>
         </div>
       </form>
     </>
