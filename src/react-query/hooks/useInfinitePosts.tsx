@@ -1,12 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Post } from "../../models/post.model";
 
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
 interface Props {
   pageSize: number;
   userId: number | undefined;
