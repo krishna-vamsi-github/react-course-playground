@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { CACHE_KEY_TODOS } from "../constans";
 
 export interface Todo {
   id: number;
@@ -19,7 +20,7 @@ const useTodos = () => {
   // concerns about managing and caching data not about how we fetch it
   // queryKey is used for caching, whenever data is fecthed from the backend, it is stored in caching
   return useQuery<Todo[], Error>({
-    queryKey: ["todos"],
+    queryKey: CACHE_KEY_TODOS,
     queryFn: fetchTodos,
     staleTime: 10 * 1000,
   });
