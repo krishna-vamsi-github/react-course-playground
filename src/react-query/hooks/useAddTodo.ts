@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CACHE_KEY_TODOS } from "../constans";
 import { Todo } from "../../models/todo.model";
-import APIClient from "../services/api-client";
+import todoService from "../services/todo-service";
 
 interface AddToDoContext {
   previosTodos: Todo[];
@@ -9,9 +9,8 @@ interface AddToDoContext {
 
 const useAddTodo = (addTodoCB: () => void) => {
   const queryClient = useQueryClient();
-  const apiClient = new APIClient<Todo>('/todos');
   return useMutation<Todo, Error, Todo, AddToDoContext>({
-    mutationFn: (todo: Todo) => apiClient.post(todo),
+    mutationFn: (todo: Todo) => todoService.post(todo),
     onSuccess: (savedData, newData) => {
       // APPROACH : Invalidating the Cache. it will not work for fake APIS to test
       // queryClient.invalidateQueries({queryKey: ["todos"]})
