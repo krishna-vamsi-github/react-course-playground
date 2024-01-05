@@ -1,15 +1,17 @@
+import { useReducer } from "react";
 import "./App.css";
-import Counter from "./state-management/Counter";
-import LoginStatus from "./state-management/LoginStatus";
-import TaskList from "./state-management/TaskList";
+import HomePage from "./state-management/HomePage";
+import NavBar from "./state-management/NavBar";
+import TaskListReducer from "./state-management/Reducers/taskListReducer";
+import TaskContext from "./state-management/Contexts/taskContext";
 
 function App() {
+  const [tasks, dispatch] = useReducer(TaskListReducer, []);
   return (
-    <>
-      <LoginStatus />
-      <Counter />
-      <TaskList />
-    </>
+    <TaskContext.Provider value={{ tasks, dispatch }}>
+      <NavBar />
+      <HomePage />
+    </TaskContext.Provider>
   );
 }
 
