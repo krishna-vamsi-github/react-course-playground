@@ -3,12 +3,12 @@ import TaskListReducer from "./Reducers/taskListReducer";
 import TaskContext from "./Contexts/taskContext";
 
 const TaskList = () => {
-  const { tasks, dispatch } = useContext(TaskContext);
+  const { tasks, taskDispatch } = useContext(TaskContext);
   return (
     <>
       <button
         onClick={() =>
-          dispatch({
+          taskDispatch({
             type: "ADD",
             task: { id: Date.now(), title: "Task " + Date.now() },
           })
@@ -26,7 +26,7 @@ const TaskList = () => {
             <span className="flex-grow-1">{task.title}</span>
             <button
               className="btn btn-outline-danger"
-              onClick={() => dispatch({ type: "DELETE", taskId: task.id })}
+              onClick={() => taskDispatch({ type: "DELETE", taskId: task.id })}
             >
               Delete
             </button>

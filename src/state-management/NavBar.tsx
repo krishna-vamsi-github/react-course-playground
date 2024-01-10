@@ -3,7 +3,7 @@ import LoginStatus from "./LoginStatus";
 import TaskContext from "./Contexts/taskContext";
 
 const NavBar = () => {
-  const { tasks, dispatch } = useContext(TaskContext);
+  const { tasks, taskDispatch } = useContext(TaskContext);
   return (
     <nav className="navbar d-flex justify-content-between">
       <span className="badge text-bg-secondary">{tasks.length}</span>
