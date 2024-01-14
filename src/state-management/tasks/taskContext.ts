@@ -1,5 +1,5 @@
 import React from "react";
-import { Task, TaskAction } from "./taskListReducer";
+import { Task, TaskAction } from "./taskListProvider";
 
 interface TaskListContext {
   tasks: Task[];
